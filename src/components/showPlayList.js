@@ -77,7 +77,7 @@ function showPlayList() {
   };
 
   return (
-    <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[780px]'>
+    <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[785px] rounded-b-lg'>
       <header className='flex justify-between'>
         <button className='text-white font-bold text-2xl py-1 px-3 pb-6 font-sans hover:underline'>
           Spotify Playlists
