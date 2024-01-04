@@ -3,13 +3,20 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/User/HomePage';
 import ShowPlayList from '../components/showPlayList';
 import BrowseAll from '../components/BrowseAll';
+import LoginPage from '../pages/Auth/Login';
+import CategoriesPlaylist from '../pages/User/CategoriesPlaylist';
 function AppRoutes() {
   return (
     <>
       <Routes>
+        <Route path='login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/' element={<HomePage />}>
           <Route index element={<ShowPlayList />} />
           <Route path='browseAll' element={<BrowseAll />} />
+          <Route
+            path='genre/:id'
+            element={<CategoriesPlaylist></CategoriesPlaylist>}
+          ></Route>
         </Route>
       </Routes>
     </>

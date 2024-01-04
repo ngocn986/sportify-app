@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBarLogo from '../../components/SidebarLogo';
 import YourLibrary from '../../components/YourLibrary';
 import BtnLogin from '../../components/BtnLogin';
 import { NavLink, Outlet } from 'react-router-dom';
 function HomePage() {
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem('token');
+
+    if (!token && hash) {
+      token = hash
+        .substring(1)
+        .split('&')
+        .find((ele) => ele.startsWith('access_token'))
+        .split('=')[1];
+      console.log('token: ', token);
+      window.location.hash = '';
+      window.localStorage.setItem('token', token);
+    }
+    setToken(token);
+  }, []);
+  const handleLogout = () => {
+    setToken('')
+    window.localStorage.removeItem('token')
+  }
   return (
     <div>
       <div className='flex'>
@@ -41,7 +62,13 @@ function HomePage() {
               >
                 Sign up
               </NavLink>
-              <BtnLogin></BtnLogin>
+              {!token ? (
+                <BtnLogin></BtnLogin>
+              ) : (
+                <button onClick={handleLogout} className='text-black border text-[16px] border-white rounded-3xl bg-white px-6 py-2 mx-4 hover:scale-105 hover:bg-gray-100'>
+                  Logout
+                </button>
+              )}
             </div>
           </header>
           <div>

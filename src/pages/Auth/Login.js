@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { ConfigProvider, Switch } from 'antd';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../../index.css';
 function Login() {
   const [showPassword, setShowPassword] = useState(true);
   const [stateSwitch, setStateSwitch] = useState(true);
+  const navigate = useNavigate();
+  const CLIENT_ID = 'b8ac00583314427388804fdfc6b4c02c';
+  const REDIRECT_URL = 'http://localhost:3000/';
+  const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+  const RESPONSE_TYPE = 'token';
 
   <ConfigProvider
     theme={{
@@ -151,7 +157,7 @@ function Login() {
               <hr className='w-3/4 text-center ml-24 mt-10 border-1'></hr>
             </div>
             <div className='flex justify-center mx-auto'>
-              <form className='text-center'>
+              <div className='text-center'>
                 <label
                   htmlFor='usernameOrEmail'
                   className='text-white block text-left mb-2 font-bold'
@@ -281,14 +287,15 @@ function Login() {
                   </div>
                 </div>
                 <div className='py-8'>
-                  <button
-                    type='submit'
-                    className='bg-[#1ed760] rounded-full py-2.5 px-[120px]  transform hover:scale-[1.1]'
+                  <NavLink
+                    to={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}
                   >
-                    <p className='font-bold text-black'>Login</p>
-                  </button>
+                    <button className='bg-[#1ed760] rounded-full py-2.5 px-[120px]  transform hover:scale-[1.1]'>
+                      <p className='font-bold text-black'>Login</p>
+                    </button>
+                  </NavLink>
                 </div>
-              </form>
+              </div>
             </div>
             <div className='text-center'>
               <a className='text-white underline hover:text-[#1ed760]'>
@@ -298,7 +305,10 @@ function Login() {
             <hr className='w-3/4 text-center ml-24 my-10 border-1'></hr>
             <div className='text-center font-mono mb-20'>
               <p className='text-white'>
-                Don&apos;t have an account? <a className='underline hover:text-[#1ed760]'>Sign up for Spotify</a>
+                Don&apos;t have an account?{' '}
+                <a className='underline hover:text-[#1ed760]'>
+                  Sign up for Spotify
+                </a>
               </p>
             </div>
           </div>
