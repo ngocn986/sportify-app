@@ -6,7 +6,7 @@ class PlaylistService {
       const token = localStorage.getItem('token');
       if (token) {
         const response = await axios.get(
-          `https://api.spotify.com/v1/browse/categories/${categoriesId.id}/playlists`,
+          `https://api.spotify.com/v1/browse/categories/${categoriesId}/playlists`,
           {
             headers: {
               Authorization: 'Bearer ' + token

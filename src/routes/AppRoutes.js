@@ -5,6 +5,7 @@ import ShowPlayList from '../components/showPlayList';
 import BrowseAll from '../components/BrowseAll';
 import LoginPage from '../pages/Auth/Login';
 import CategoriesPlaylist from '../pages/User/CategoriesPlaylist';
+import PlaylistDetail from '../pages/User/PlaylistDetail';
 function AppRoutes() {
   return (
     <>
@@ -14,8 +15,12 @@ function AppRoutes() {
           <Route index element={<ShowPlayList />} />
           <Route path='browseAll' element={<BrowseAll />} />
           <Route
-            path='genre/:id'
+            path='genre/:categoriesId'
             element={<CategoriesPlaylist></CategoriesPlaylist>}
+          ></Route>
+          <Route
+            path='playlist/:playlistId'
+            element={<PlaylistDetail></PlaylistDetail>}
           ></Route>
         </Route>
       </Routes>

@@ -8,7 +8,6 @@ function HomePage() {
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem('token');
-
     if (!token && hash) {
       token = hash
         .substring(1)
@@ -19,12 +18,15 @@ function HomePage() {
       window.location.hash = '';
       window.localStorage.setItem('token', token);
     }
+    setTimeout(() => {
+      handleLogout()
+    }, (60000*60))
     setToken(token);
   }, []);
   const handleLogout = () => {
-    setToken('')
-    window.localStorage.removeItem('token')
-  }
+    setToken('');
+    window.localStorage.removeItem('token');
+  };
   return (
     <div>
       <div className='flex'>
@@ -65,7 +67,10 @@ function HomePage() {
               {!token ? (
                 <BtnLogin></BtnLogin>
               ) : (
-                <button onClick={handleLogout} className='text-black border text-[16px] border-white rounded-3xl bg-white px-6 py-2 mx-4 hover:scale-105 hover:bg-gray-100'>
+                <button
+                  onClick={handleLogout}
+                  className='text-black border text-[16px] border-white rounded-3xl bg-white px-6 py-2 mx-4 hover:scale-105 hover:bg-gray-100'
+                >
                   Logout
                 </button>
               )}

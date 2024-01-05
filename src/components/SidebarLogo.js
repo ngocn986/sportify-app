@@ -6,7 +6,6 @@ import SearchLogo from './SearchLogo';
 import { NavLink, useLocation } from 'react-router-dom';
 function sidebarLogo() {
   const location = useLocation();
-  console.log('location: ' + location.pathname);
   return (
     <div>
       <div className='bg-[#121212] pl-4 rounded-lg'>

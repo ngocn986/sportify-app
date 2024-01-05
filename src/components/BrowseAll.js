@@ -55,9 +55,10 @@ function BrowseAll() {
         <div className='flex flex-wrap gap-5 ml-12 mt-5'>
           {categories &&
             categories.map((item, i) => (
-              <NavLink key={i} to={`/genre/${item.id}`}>
+              <NavLink key={i} to={`/genre/${item.id}&${item.name}&${getRandomColor()}`}>
                 <div
-                  className={`cursor-pointer hover:scale-105 duration-500 image-category relative h-[187px] w-[187px]  rounded-lg overflow-hidden bg-[${randomColors[i]}]`}
+                  className='cursor-pointer hover:scale-105 duration-500 image-category relative h-[187px] w-[187px]  rounded-lg overflow-hidden'
+                  style={{ backgroundColor: getRandomColor() }}
                 >
                   <p className='text-white font-bold text-2xl py-3 px-3'>
                     {item.name}

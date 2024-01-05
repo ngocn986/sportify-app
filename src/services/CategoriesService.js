@@ -11,8 +11,8 @@ class CategoriesService {
       if (token) {
         const response = await axios.get(ENDPOINT, {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         });
         return response;
       }
