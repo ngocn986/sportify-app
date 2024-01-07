@@ -4,7 +4,7 @@ import BrowsePodcast from './BrowsePodcast';
 function YourLibrary() {
   return (
     <div>
-      <div className='bg-[#121212] h-[700px] rounded-lg'>
+      <div className='bg-[#121212] h-[800px] rounded-lg'>
         <div className='py-4 px-6 flex justify-around '>
           <button className='flex-grow flex gap-2'>
             <svg
@@ -89,13 +89,15 @@ function YourLibrary() {
           </p>
           <BrowsePodcast></BrowsePodcast>
         </div>
-        <div className='flex justify-around text-[0.7rem] text-[#8c8c8c] p-4 gap-2 mt-40 mb-10'>
+        <div className='flex flex-wrap justify-around text-[0.7rem] text-[#8c8c8c] p-4 gap-2 mt-52 mb-10'>
           <span>Legal</span>
           <span>Privacy Center</span>
           <span>Privacy Policy</span>
           <span>Cookies</span>
           <span>About Ads</span>
           <span>Accessibility</span>
+          <span>Cookies</span>
+          <span>Accessibility Policy</span>
         </div>
         <div className='mx-4'>
           <button className='border flex border-white rounded-2xl text-[#8c8c8c] font-bold gap-2 py-2 px-2 hover:scale-105'>

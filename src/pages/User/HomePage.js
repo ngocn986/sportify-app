@@ -36,7 +36,7 @@ function HomePage() {
             <YourLibrary></YourLibrary>
           </div>
         </div>
-        <div className='basis-11/12 my-2'>
+        <div className='basis-11/12 my-2 mx-2'>
           <header className='bg-[#101010] py-4 rounded-t-md'>
             <div className='flex justify-end gap-3 text-[#a7a7a7] font-bold text-[16px] '>
               <NavLink

@@ -46,7 +46,7 @@ function BrowseAll() {
   };
   return (
     <>
-      <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[785px] rounded-b-lg overflow-auto'>
+      <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-auto'>
         <header>
           <p className='text-white font-bold text-3xl pt-5 px-5 font-sans hover:underline'>
             Browse all

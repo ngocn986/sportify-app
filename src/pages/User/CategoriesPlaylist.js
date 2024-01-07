@@ -51,7 +51,7 @@ function CategoriesPlaylist() {
           style={{
             background: `linear-gradient(to bottom, ${color}, #1f1f1f)`,
           }}
-          className='bg-gradient-to-b from-[#1f1f1f] to-black h-[785px] rounded-b-lg overflow-auto'
+          className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-auto'
         >
           <div className='my-10'>
             <Empty />
@@ -59,7 +59,7 @@ function CategoriesPlaylist() {
         </div>
       ) : (
         <div
-          className='bg-gradient-to-b from-[#1f1f1f] to-black h-[785px] rounded-b-lg overflow-auto'
+          className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-auto'
           style={{
             background: `linear-gradient(to bottom, ${color}, #1f1f1f)`,
           }}
@@ -101,7 +101,7 @@ function CategoriesPlaylist() {
                             alt='no picture'
                           />
                         ))}
-                        <p className='text-white font-bold font-sans truncate'>
+                        <p className='font-bold text-white font-sans truncate'>
                           {item.name}
                         </p>
                         <span className='text-[#7c7c7c] font-thin text-sm break-words line-clamp-2 '>
