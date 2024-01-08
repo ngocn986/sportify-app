@@ -5,18 +5,11 @@ import Footer from './footer';
 function BrowseAll() {
   const [categories, setCategories] = useState([]);
   const services = new CategoriesService();
-  const [randomColors, setRandomColors] = useState([]);
 
   const getCategories = async () => {
     try {
       let response = await services.getCategories();
       setCategories(response.data.categories.items);
-
-      const randomColorsArray = Array.from(
-        { length: response.data.categories.items.length },
-        getRandomColor
-      );
-      setRandomColors(randomColorsArray);
     } catch (error) {
       console.error(error);
     }
@@ -46,16 +39,19 @@ function BrowseAll() {
   };
   return (
     <>
-      <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-auto'>
+      <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[850px] scroll-container rounded-b-lg overflow-auto'>
         <header>
           <p className='text-white font-bold text-3xl pt-5 px-5 font-sans hover:underline'>
             Browse all
           </p>
         </header>
-        <div className='flex flex-wrap gap-5 ml-12 mt-5'>
+        <div className='flex flex-wrap gap-5 ml-12 mt-5 overflow-auto'>
           {categories &&
             categories.map((item, i) => (
-              <NavLink key={i} to={`/genre/${item.id}&${item.name}&${getRandomColor()}`}>
+              <NavLink
+                key={i}
+                to={`/genre/${item.id}&${item.name}&${getRandomColor()}`}
+              >
                 <div
                   className='cursor-pointer hover:scale-105 duration-500 image-category relative h-[187px] w-[187px]  rounded-lg overflow-hidden'
                   style={{ backgroundColor: getRandomColor() }}

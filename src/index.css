@@ -20,6 +20,10 @@ code {
     monospace;
 }
 
+html {
+  background-color: #000000;
+}
+
 .ant-switch-handle::before {
   background-color: black !important;
   bottom: 1.2px !important;

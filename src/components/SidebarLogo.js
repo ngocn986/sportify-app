@@ -4,8 +4,14 @@ import React from 'react';
 import HomeLogo from './HomeLogo';
 import SearchLogo from './SearchLogo';
 import { NavLink, useLocation } from 'react-router-dom';
-function sidebarLogo() {
+function sidebarLogo({ onBrowseAllChange }) {
   const location = useLocation();
+  const handleBrowseAllClick = () => {
+    onBrowseAllChange(true);
+  };
+  const handleHomeClick = () => {
+    onBrowseAllChange(false);
+  };
   return (
     <div>
       <div className='bg-[#121212] pl-4 rounded-lg'>
@@ -20,7 +26,7 @@ function sidebarLogo() {
             fill='#ffffff'
           />
         </svg>
-        <NavLink to={'/'}>
+        <NavLink to={'/'} onClick={handleHomeClick}>
           <button className='pl-3 flex gap-2'>
             <HomeLogo></HomeLogo>
             <span
@@ -32,7 +38,7 @@ function sidebarLogo() {
             </span>
           </button>
         </NavLink>
-        <NavLink to={'browseAll'}>
+        <NavLink to={'browseAll'} onClick={handleBrowseAllClick}>
           <button className='pl-3 flex gap-2 py-4'>
             <SearchLogo></SearchLogo>
             <span
