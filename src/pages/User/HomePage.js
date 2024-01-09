@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react';
 import SideBarLogo from '../../components/SidebarLogo';
 import YourLibrary from '../../components/YourLibrary';
 import BtnLogin from '../../components/BtnLogin';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import SearchService from '../../services/SearchService';
+import SearchSong from './SearchSong';
+import SearchArtist from './SearchArtist';
 function HomePage() {
+  const services = new SearchService();
   const [token, setToken] = useState('');
   const [isBrowseAll, setIsBrowseAll] = useState(false);
   const [query, setQuery] = useState('');
+  const [type, setType] = useState('');
+  const [typeName, setTypeName] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem('token');
@@ -24,17 +32,68 @@ function HomePage() {
     }, 30000 * 60);
     setToken(token);
   }, []);
+  const typeOption = [
+    {
+      id: 'playlist',
+      name: 'Playlist',
+    },
+    {
+      id: 'album',
+      name: 'Albums',
+    },
+    {
+      id: 'artist',
+      name: 'Artists',
+    },
+    {
+      id: 'show',
+      name: 'Episodes & Shows',
+    },
+    {
+      id: 'track',
+      name: 'Songs',
+    },
+  ];
+  const search = async (query, type) => {
+    try {
+      let response = await services.searchService(query, type);
+      setSearchResult(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   const handleLogout = () => {
     setToken('');
     window.localStorage.removeItem('token');
   };
   const handleBrowseAllChange = (value) => {
     setIsBrowseAll(value);
+    setQuery('');
+    setTypeName('');
+    setType('');
   };
   const handleClearQuery = () => {
-    setQuery('')
-  }
+    setQuery('');
+    setTypeName('');
+    setType('');
+  };
+
+  const handleSearchPlaylist = (typeId, typeName) => {
+    setType(typeId);
+    setTypeName(typeName);
+    search(query, typeId);
+  };
+
+  useEffect(() => {
+    if (query === '') {
+      setTypeName('');
+      setType('');
+    }
+    search(query, type);
+  }, [query, type]);
+  console.log('type: ', type);
   console.log('query: ', query);
+  console.log('searchResult: ', searchResult);
   return (
     <div>
       <div className='flex bg-black'>
@@ -164,33 +223,30 @@ function HomePage() {
             </div>
             {query && (
               <div className='text-white mt-5 ml-8 flex gap-4 duration-500'>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Track
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Show
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Albums
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Artists
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Playlists
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  Episode
-                </span>
-                <span className='border border-white hover:bg-[#2b2b2b] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full'>
-                  AudioBook
-                </span>
+                {typeOption &&
+                  typeOption.map((type, i) => (
+                    <span
+                      key={i}
+                      onClick={() => handleSearchPlaylist(type.id, type.name)}
+                      className={`${
+                        typeName === type.name
+                          ? 'bg-white text-black border border-black hover:bg-white'
+                          : ''
+                      } border border-white cursor-pointer hover:bg-[#f1f1f123] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full`}
+                    >
+                      {type.name}
+                    </span>
+                  ))}
               </div>
             )}
           </header>
-          <div>
-            <Outlet></Outlet>
-          </div>
+          {!type && (
+            <div>
+              <Outlet></Outlet>
+            </div>
+          )}
+          {query && type === 'track' && <SearchSong data={searchResult}></SearchSong>}
+          {query && type === 'artist' && <SearchArtist data={searchResult}></SearchArtist>}
         </div>
       </div>
     </div>

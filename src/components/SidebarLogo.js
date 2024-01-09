@@ -31,7 +31,8 @@ function sidebarLogo({ onBrowseAllChange }) {
             <HomeLogo></HomeLogo>
             <span
               className={`text-[#b2b2b2] font-bold pt-1 text-sm hover:text-white ${
-                location.pathname === '/' ? 'text-white' : ''
+                location.pathname === '/' ||
+                location.pathname?.split('/')[1] === 'playlist' ? 'text-white' : ''
               }`}
             >
               Home
@@ -43,7 +44,14 @@ function sidebarLogo({ onBrowseAllChange }) {
             <SearchLogo></SearchLogo>
             <span
               className={`text-[#b2b2b2] font-bold pt-1 text-sm hover:text-white ${
-                location.pathname === '/browseAll' ? 'text-white' : ''
+                location.pathname === '/browseAll' ||
+                location.pathname === '/searchPlaylist' ||
+                location.pathname === '/searchAlbum' ||
+                location.pathname === '/searchArtist' ||
+                location.pathname === '/searchShow' ||
+                location.pathname === '/searchTrack'
+                  ? 'text-white'
+                  : ''
               }`}
             >
               Search

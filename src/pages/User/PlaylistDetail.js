@@ -25,7 +25,6 @@ function PlaylistDetail() {
   useEffect(() => {
     getPlaylist(playlistId);
   }, [playlistId]);
-  console.log('dataPlaylist: ', dataPlaylist);
   useEffect(() => {
     if (dataPlaylist?.tracks?.items) {
       const index = Math.ceil(dataPlaylist.tracks.items.length / 2);
