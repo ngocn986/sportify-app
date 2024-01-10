@@ -7,7 +7,7 @@ function Login() {
   const [stateSwitch, setStateSwitch] = useState(true);
   const navigate = useNavigate();
   const CLIENT_ID = 'b8ac00583314427388804fdfc6b4c02c';
-  const REDIRECT_URL = 'http://localhost:3000/';
+  const REDIRECT_URL = 'https://spotifyapp-8b811.web.app/';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
   const RESPONSE_TYPE = 'token';
 
