@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../../components/footer';
-import { formatDistanceToNow } from 'date-fns';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import TimerDuration from '../../components/TimerDuration';
-function SearchSong({ data }) {
-  const [tracks, setTracks] = useState([]);
+import SearchService from '../../services/SearchService';
 
-  useEffect(() => {
-    setTracks(data);
-  }, [data]);
-  const added_at = (addedAt) => {
-    const formattedDate = formatDistanceToNow(new Date(addedAt), {
-      addSuffix: true,
-    });
-    return <div className='flex-1'>{formattedDate}</div>;
+function SearchSong() {
+  const [tracks, setTracks] = useState([]);
+  const services = new SearchService();
+  const { q, type } = useParams();
+  const search = async (query, type) => {
+    try {
+      let response = await services.searchService(query, type);
+      setTracks(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+  useEffect(() => {
+    search(q, type);
+  }, [q, type]);
   const convertMS = (durationInMs) => {
     const minutes = Math.floor(durationInMs / (1000 * 60));
     const seconds = Math.floor((durationInMs % (1000 * 60)) / 1000);
@@ -65,13 +69,15 @@ function SearchSong({ data }) {
                           {item?.artists && (
                             <div>
                               {item?.artists.map((artist, i) => (
-                                <span
+                                <NavLink
                                   key={i}
-                                  className='cursor-pointer hover:underline hover:text-white group-hover:text-white'
+                                  to={artist.external_urls?.spotify}
                                 >
-                                  {artist.name}
-                                  {i < item.artists.length - 1 && ', '}
-                                </span>
+                                  <span className='cursor-pointer hover:underline hover:text-white group-hover:text-white'>
+                                    {artist.name}
+                                    {i < item.artists.length - 1 && ', '}
+                                  </span>
+                                </NavLink>
                               ))}
                             </div>
                           )}

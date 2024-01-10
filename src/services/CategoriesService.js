@@ -6,8 +6,6 @@ class CategoriesService {
   async getCategories() {
     try {
       const token = localStorage.getItem('token');
-      console.log('tokenService: ', token);
-
       if (token) {
         const response = await axios.get(ENDPOINT, {
           headers: {

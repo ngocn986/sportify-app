@@ -63,7 +63,6 @@ function showPlayList() {
     setPlayLists(playlists.slice(0, 7));
     getFeaturedPlaylists();
   }, []);
-  console.log('featurePlaylist: ', featurePlaylist);
   const cardPlayList = () => {
     return (
       <>

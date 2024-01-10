@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react';
 import SideBarLogo from '../../components/SidebarLogo';
 import YourLibrary from '../../components/YourLibrary';
 import BtnLogin from '../../components/BtnLogin';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import SearchService from '../../services/SearchService';
 import SearchSong from './SearchSong';
+import SearchAlbum from './SearchAlbum';
 import SearchArtist from './SearchArtist';
+import SearchPlaylist from './SearchPlaylist';
+import SearchShow from './SearchShow';
+import { type } from '@testing-library/user-event/dist/type';
 function HomePage() {
-  const services = new SearchService();
   const [token, setToken] = useState('');
   const [isBrowseAll, setIsBrowseAll] = useState(false);
   const [query, setQuery] = useState('');
-  const [type, setType] = useState('');
+  const [typeId, setType] = useState('');
   const [typeName, setTypeName] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  const { q, type: routeType } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     const hash = window.location.hash;
@@ -27,11 +30,13 @@ function HomePage() {
       window.location.hash = '';
       window.localStorage.setItem('token', token);
     }
-    setTimeout(() => {
-      handleLogout();
-    }, 30000 * 60);
     setToken(token);
   }, []);
+  setTimeout(() => {
+    setToken('');
+    navigate('login');
+    window.localStorage.removeItem('token');
+  }, 900000);
   const typeOption = [
     {
       id: 'playlist',
@@ -47,21 +52,13 @@ function HomePage() {
     },
     {
       id: 'show',
-      name: 'Episodes & Shows',
+      name: 'Shows',
     },
     {
       id: 'track',
       name: 'Songs',
     },
   ];
-  const search = async (query, type) => {
-    try {
-      let response = await services.searchService(query, type);
-      setSearchResult(response.data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
   const handleLogout = () => {
     setToken('');
     window.localStorage.removeItem('token');
@@ -76,24 +73,48 @@ function HomePage() {
     setQuery('');
     setTypeName('');
     setType('');
+    setIsBrowseAll(true);
+    navigate('/search/browseAll');
   };
 
   const handleSearchPlaylist = (typeId, typeName) => {
     setType(typeId);
     setTypeName(typeName);
-    search(query, typeId);
   };
 
   useEffect(() => {
-    if (query === '') {
+    if (query === '' && typeId) {
       setTypeName('');
       setType('');
+      setIsBrowseAll(true);
+      navigate('/search/browseAll');
     }
-    search(query, type);
-  }, [query, type]);
-  console.log('type: ', type);
-  console.log('query: ', query);
-  console.log('searchResult: ', searchResult);
+  }, [query, typeId]);
+  useEffect(() => {
+    // Ở đây, chúng ta kiểm tra xem routeType có giá trị không.
+    // Nếu có, ta cập nhật giá trị cho 'type' state.
+    if (routeType && q) {
+      setTypeName(routeType);
+      setType(routeType);
+      setQuery(q);
+      setIsBrowseAll(true);
+    }
+    // Tiếp theo, bạn có thể thực hiện các hành động cần thiết với 'q' và 'type' ở đây.
+  }, [routeType, q]);
+  useEffect(() => {
+    if (
+      query &&
+      (typeId === 'track' ||
+        typeId === 'artist' ||
+        typeId === 'playlist' ||
+        typeId === 'album' ||
+        typeId === 'show')
+    ) {
+      navigate(
+        `search/${encodeURIComponent(query)}/${encodeURIComponent(typeId)}`
+      );
+    }
+  }, [query, typeId]);
   return (
     <div>
       <div className='flex bg-black'>
@@ -111,7 +132,7 @@ function HomePage() {
               } gap-3 text-[#a7a7a7] font-bold text-[16px]`}
             >
               {/* Search */}
-              {isBrowseAll ? (
+              {isBrowseAll && (
                 <div className='flex hover:border flex-1 bg-[#242424] w-1/2 ml-10 mr-[600px] h-14 rounded-full hover:border-gray-300 group'>
                   <svg
                     width='25px'
@@ -184,7 +205,7 @@ function HomePage() {
                     </button>
                   ) : null}
                 </div>
-              ) : null}
+              )}
               <NavLink
                 className='my-2 w-10 text-end hover:text-white hover:scale-105 mr-7'
                 to={'/spotify/premium'}
@@ -229,7 +250,7 @@ function HomePage() {
                       key={i}
                       onClick={() => handleSearchPlaylist(type.id, type.name)}
                       className={`${
-                        typeName === type.name
+                        typeName === type.name || typeName === type.id
                           ? 'bg-white text-black border border-black hover:bg-white'
                           : ''
                       } border border-white cursor-pointer hover:bg-[#f1f1f123] bg-[#1f1f1f] font-semibold px-3 py-2 rounded-full`}
@@ -240,13 +261,16 @@ function HomePage() {
               </div>
             )}
           </header>
-          {!type && (
+          {!typeId && (
             <div>
               <Outlet></Outlet>
             </div>
           )}
-          {query && type === 'track' && <SearchSong data={searchResult}></SearchSong>}
-          {query && type === 'artist' && <SearchArtist data={searchResult}></SearchArtist>}
+          {query && typeId === 'track' && <SearchSong></SearchSong>}
+          {query && typeId === 'album' && <SearchAlbum></SearchAlbum>}
+          {query && typeId === 'show' && <SearchShow></SearchShow>}
+          {query && typeId === 'playlist' && <SearchPlaylist></SearchPlaylist>}
+          {query && typeId === 'artist' && <SearchArtist></SearchArtist>}
         </div>
       </div>
     </div>

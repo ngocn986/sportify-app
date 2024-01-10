@@ -3,15 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import BtnPlay from '../../components/BtnPlay';
 import SearchService from '../../services/SearchService';
-
-function SearchArtist() {
-  const [artist, setArtist] = useState([]);
+function SearchShow() {
   const services = new SearchService();
+  const [show, setShow] = useState([]);
   const { q, type } = useParams();
   const search = async (query, type) => {
     try {
       let response = await services.searchService(query, type);
-      setArtist(response.data);
+      setShow(response.data);
     } catch (error) {
       console.error(error.message);
     }
@@ -22,15 +21,15 @@ function SearchArtist() {
   return (
     <div className='bg-[#101010]'>
       <div className='flex flex-wrap gap-6 px-7'>
-        {artist.artists?.items.map((item, i) => (
+        {show.shows?.items.map((item, i) => (
           <NavLink key={i} to={item.external_urls?.spotify}>
             <div className='mt-4 w-[197px] h-[275px] cursor-pointer p-4 rounded-md bg-[#161616] hover:bg-[#242424] duration-500 relative group'>
-              <div className='absolute right-6 top-[100px] transition-transform -translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0'>
+              <div className='absolute right-6 top-[125px] transition-transform -translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0'>
                 <BtnPlay />
               </div>
               {item.images[0]?.url ? (
                 <img
-                  className='w-[164px] h-[164px] rounded-full mb-4'
+                  className='w-[164px] h-[164px] rounded-md mb-4'
                   src={item.images[0]?.url}
                   alt='no picture'
                 />
@@ -82,4 +81,4 @@ function SearchArtist() {
   );
 }
 
-export default SearchArtist;
+export default SearchShow;

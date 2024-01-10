@@ -6,6 +6,11 @@ import BrowseAll from '../components/BrowseAll';
 import LoginPage from '../pages/Auth/Login';
 import CategoriesPlaylist from '../pages/User/CategoriesPlaylist';
 import PlaylistDetail from '../pages/User/PlaylistDetail';
+import SearchSong from '../pages/User/SearchSong';
+import SearchArtist from '../pages/User/SearchArtist';
+import SearchPlaylist from '../pages/User/SearchPlaylist';
+import SearchAlbum from '../pages/User/SearchAlbum';
+import SearchShow from '../pages/User/SearchShow';
 function AppRoutes() {
   return (
     <>
@@ -13,7 +18,7 @@ function AppRoutes() {
         <Route path='login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/' element={<HomePage />}>
           <Route index element={<ShowPlayList />} />
-          <Route path='browseAll' element={<BrowseAll />} />
+          <Route path='search/browseAll' element={<BrowseAll />} />
           <Route
             path='genre/:categoriesId'
             element={<CategoriesPlaylist></CategoriesPlaylist>}
@@ -21,6 +26,26 @@ function AppRoutes() {
           <Route
             path='playlist/:playlistId'
             element={<PlaylistDetail></PlaylistDetail>}
+          ></Route>
+          <Route
+            path='search/:q/:type'
+            element={<SearchSong></SearchSong>}
+          ></Route>
+          <Route
+            path='search/:q/:type'
+            element={<SearchPlaylist></SearchPlaylist>}
+          ></Route>
+          <Route
+            path='search/:q/:type'
+            element={<SearchArtist></SearchArtist>}
+          ></Route>
+          <Route
+            path='search/:q/:type'
+            element={<SearchAlbum></SearchAlbum>}
+          ></Route>
+          <Route
+            path='search/:q/:type'
+            element={<SearchShow></SearchShow>}
           ></Route>
         </Route>
       </Routes>

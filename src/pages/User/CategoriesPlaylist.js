@@ -17,10 +17,8 @@ function CategoriesPlaylist() {
       let response = await services.getCategoriesPlaylist(categoryId);
       if (response.status === 200) {
         if (stateShowAll) {
-          console.log('check');
           setCategoriesPlaylist(response.data.playlists.items.slice(0, 7));
         } else {
-          console.log('check1');
           setCategoriesPlaylist(response.data.playlists.items);
         }
       }

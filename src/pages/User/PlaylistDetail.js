@@ -157,7 +157,7 @@ function PlaylistDetail() {
     );
   };
   return (
-    <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-y-auto scroll-container'>
+    <div className='bg-gradient-to-b from-[#1f1f1f] to-black h-[885px] rounded-b-lg overflow-y-scroll overflow-x-hidden scroll-container'>
       <div className='relative w-full h-[350px] bg-gradient-to-b from-[#d5c6a7] to-[#6d6555]'>
         {dataPlaylist.images?.map((image, i) => (
           <img
@@ -170,9 +170,9 @@ function PlaylistDetail() {
         <div className='absolute top-20 left-[295px] text-white font-thin'>
           Play list
         </div>
-        <div className='absolute top-28 left-[295px] text-white font-bold text-8xl'>
+        <p className='absolute top-28 left-[295px] break-words text-white font-bold text-7xl truncate'>
           {dataPlaylist.name}
-        </div>
+        </p>
         <div className='absolute top-56 left-[300px] text-[#bdb8ae] text-[14px] font-semibold'>
           {dataPlaylist.description}
         </div>

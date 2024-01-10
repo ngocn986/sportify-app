@@ -31,25 +31,25 @@ function sidebarLogo({ onBrowseAllChange }) {
             <HomeLogo></HomeLogo>
             <span
               className={`text-[#b2b2b2] font-bold pt-1 text-sm hover:text-white ${
-                location.pathname === '/' ||
-                location.pathname?.split('/')[1] === 'playlist' ? 'text-white' : ''
+                location.pathname === '/'? 'text-white' : ''
               }`}
             >
               Home
             </span>
           </button>
         </NavLink>
-        <NavLink to={'browseAll'} onClick={handleBrowseAllClick}>
+        <NavLink to={'search/browseAll'} onClick={handleBrowseAllClick}>
           <button className='pl-3 flex gap-2 py-4'>
             <SearchLogo></SearchLogo>
             <span
               className={`text-[#b2b2b2] font-bold pt-1 text-sm hover:text-white ${
-                location.pathname === '/browseAll' ||
+                location.pathname === '/search/browseAll' ||
                 location.pathname === '/searchPlaylist' ||
                 location.pathname === '/searchAlbum' ||
                 location.pathname === '/searchArtist' ||
                 location.pathname === '/searchShow' ||
-                location.pathname === '/searchTrack'
+                location.pathname === '/searchTrack' ||
+                location.pathname.includes('genre') === true
                   ? 'text-white'
                   : ''
               }`}
