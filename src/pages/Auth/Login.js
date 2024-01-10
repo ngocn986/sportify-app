@@ -7,7 +7,7 @@ function Login() {
   const [stateSwitch, setStateSwitch] = useState(true);
   const navigate = useNavigate();
   const CLIENT_ID = 'b8ac00583314427388804fdfc6b4c02c';
-  const REDIRECT_URL = 'https://spotifyapp-8b811.web.app/';
+  const REDIRECT_URL = 'http://localhost:3000/';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
   const RESPONSE_TYPE = 'token';
 
@@ -165,6 +165,7 @@ function Login() {
                   <span>Email or username </span>
                 </label>
                 <input
+                  value='nguyenvanngoc11082000@gmail.com'
                   type='text'
                   id='usernameOrEmail'
                   className='bg-[#121212] w-80 h-11 text-white p-2 border border-gray-400 rounded-md hover:border-white focus:border-4 focus:outline-none'
@@ -266,6 +267,7 @@ function Login() {
                     </span>
                   )}
                   <input
+                    value='Ngocn986'
                     type={showPassword ? 'password' : 'text'}
                     id='usernameOrEmail'
                     className='bg-[#121212] w-80 h-11 text-white p-2 border border-gray-400 rounded-md hover:border-white focus:border-4 focus:outline-none'

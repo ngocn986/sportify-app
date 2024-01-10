@@ -9,7 +9,6 @@ import SearchAlbum from './SearchAlbum';
 import SearchArtist from './SearchArtist';
 import SearchPlaylist from './SearchPlaylist';
 import SearchShow from './SearchShow';
-import { type } from '@testing-library/user-event/dist/type';
 function HomePage() {
   const [token, setToken] = useState('');
   const [isBrowseAll, setIsBrowseAll] = useState(false);
@@ -29,6 +28,7 @@ function HomePage() {
         .split('=')[1];
       window.location.hash = '';
       window.localStorage.setItem('token', token);
+      console.log('token:', token);
     }
     setToken(token);
   }, []);
@@ -261,11 +261,9 @@ function HomePage() {
               </div>
             )}
           </header>
-          {!typeId && (
-            <div>
-              <Outlet></Outlet>
-            </div>
-          )}
+          <div>
+            <Outlet></Outlet>
+          </div>
           {query && typeId === 'track' && <SearchSong></SearchSong>}
           {query && typeId === 'album' && <SearchAlbum></SearchAlbum>}
           {query && typeId === 'show' && <SearchShow></SearchShow>}

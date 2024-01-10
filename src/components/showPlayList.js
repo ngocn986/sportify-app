@@ -9,44 +9,9 @@ import PlaylistService from '../services/PlaylistService';
 import { NavLink } from 'react-router-dom';
 function showPlayList() {
   const services = new PlaylistService();
-  const [playLists, setPlayLists] = useState([]);
   const [stateShowAll, setStateShowAll] = useState(true);
   const [featurePlaylist, setFeaturePlaylist] = useState([]);
-  const playlists = [
-    {
-      title: 'Title 1',
-      description: 'Description 1',
-    },
-    {
-      title: 'Title 2',
-      description: 'Description 2',
-    },
-    {
-      title: 'Title 3',
-      description: 'Description 3',
-    },
-    {
-      title: 'Title 4',
-      description: 'Description 4',
-    },
-    {
-      title: 'Title 5',
-      description: 'Description 5',
-    },
-    {
-      title: 'Title 6',
-      description: 'Description 6',
-    },
-    {
-      title: 'Title 7',
-      description: 'Description 7',
-    },
-    {
-      title: 'Title 8',
-      description: 'Description 8',
-    },
-  ];
-
+  
   const getFeaturedPlaylists = async () => {
     try {
       const response = await services.getFeaturedPlaylists();
@@ -56,13 +21,12 @@ function showPlayList() {
     }
   };
   const handleShowAll = () => {
-    setPlayLists(playlists);
     setStateShowAll(false);
   };
   useEffect(() => {
-    setPlayLists(playlists.slice(0, 7));
     getFeaturedPlaylists();
   }, []);
+  console.log('Featured: ', featurePlaylist)
   const cardPlayList = () => {
     return (
       <>

@@ -17,7 +17,7 @@ function AppRoutes() {
       <Routes>
         <Route path='login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/' element={<HomePage />}>
-          <Route path='showPlaylist' element={<ShowPlayList />} />
+          <Route index element={<ShowPlayList />} />
           <Route path='search/browseAll' element={<BrowseAll />} />
           <Route
             path='genre/:categoriesId'

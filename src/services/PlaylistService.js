@@ -40,6 +40,7 @@ class PlaylistService {
   async getFeaturedPlaylists() {
     try {
       const token = localStorage.getItem('token');
+      console.log('tokenFeature: ' + token);
       if (token) {
         const response = await axios.get(
           'https://api.spotify.com/v1/browse/featured-playlists',
