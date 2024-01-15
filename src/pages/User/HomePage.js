@@ -31,6 +31,7 @@ function HomePage() {
   const handleLogout = () => {
     setToken('');
     window.localStorage.removeItem('token');
+    navigate('/errorAuthor')
   };
   const handleBrowseAllChange = (value) => {
     setIsBrowseAll(value);

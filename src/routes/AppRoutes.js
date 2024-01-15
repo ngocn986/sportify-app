@@ -11,12 +11,17 @@ import SearchArtist from '../pages/User/SearchArtist';
 import SearchPlaylist from '../pages/User/SearchPlaylist';
 import SearchAlbum from '../pages/User/SearchAlbum';
 import SearchShow from '../pages/User/SearchShow';
+import ErrorAuthorize from '../components/ErrorAuthorize';
 function AppRoutes() {
   return (
     <>
       <Routes>
         <Route path='login' element={<LoginPage></LoginPage>}></Route>
         <Route path='/' element={<HomePage />}>
+          <Route
+            path='errorAuthor'
+            element={<ErrorAuthorize></ErrorAuthorize>}
+          ></Route>
           <Route index element={<ShowPlayList />} />
           <Route path='search/browseAll' element={<BrowseAll />} />
           <Route

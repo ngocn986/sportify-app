@@ -2,16 +2,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Tooltip } from 'antd';
+import { Tooltip, Button, Result } from 'antd';
 import Footer from './footer';
 import BtnPlay from './BtnPlay';
 import PlaylistService from '../services/PlaylistService';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import ErrorAuthorize from './ErrorAuthorize';
 function showPlayList() {
   const services = new PlaylistService();
   const [stateShowAll, setStateShowAll] = useState(true);
   const [featurePlaylist, setFeaturePlaylist] = useState([]);
-  
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const navigate = useNavigate();
   const getFeaturedPlaylists = async () => {
     try {
       const response = await services.getFeaturedPlaylists();
@@ -26,7 +28,6 @@ function showPlayList() {
   useEffect(() => {
     getFeaturedPlaylists();
   }, []);
-  console.log('Featured: ', featurePlaylist)
   const cardPlayList = () => {
     return (
       <>
@@ -92,25 +93,31 @@ function showPlayList() {
   };
 
   return (
-    <div className='bg-gradient-to-b from-[#1f1f1f] h-[885px] rounded-b-lg overflow-y-auto scroll-container'>
-      <header className='flex justify-between'>
-        <button className='text-white font-bold text-2xl py-2 px-4 pb-6 font-sans hover:underline'>
-          {featurePlaylist.message}
-        </button>
-        <span
-          onClick={handleShowAll}
-          className={`text-[#b3b3b3] font-bold text-sm mx-6 my-4 hover:underline cursor-pointer ${
-            stateShowAll ? 'block' : 'hidden'
-          }`}
-        >
-          Show All
-        </span>
-      </header>
-      {/* Card */}
-      <div>{cardPlayList()}</div>
-      <Footer></Footer>
-      <div className='border-b-[1px] w-11/12 mx-14 items-center border-gray-400'></div>
-    </div>
+    <>
+      {!token ? (
+        <ErrorAuthorize></ErrorAuthorize>
+      ) : (
+        <div className='bg-gradient-to-b from-[#1f1f1f] h-[885px] rounded-b-lg overflow-y-auto scroll-container'>
+          <header className='flex justify-between'>
+            <button className='text-white font-bold text-2xl py-2 px-4 pb-6 font-sans hover:underline'>
+              {featurePlaylist.message}
+            </button>
+            <span
+              onClick={handleShowAll}
+              className={`text-[#b3b3b3] font-bold text-sm mx-6 my-4 hover:underline cursor-pointer ${
+                stateShowAll ? 'block' : 'hidden'
+              }`}
+            >
+              Show All
+            </span>
+          </header>
+          {/* Card */}
+          <div>{cardPlayList()}</div>
+          <Footer></Footer>
+          <div className='border-b-[1px] w-11/12 mx-14 items-center border-gray-400'></div>
+        </div>
+      )}
+    </>
   );
 }
 
