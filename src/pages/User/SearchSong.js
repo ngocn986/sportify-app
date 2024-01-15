@@ -10,7 +10,7 @@ function SearchSong() {
   const { q, type } = useParams();
   const search = async (query, type) => {
     try {
-      let response = await services.searchService(query, type);
+      const response = await services.searchService(query, type);
       setTracks(response.data);
     } catch (error) {
       console.error(error.message);

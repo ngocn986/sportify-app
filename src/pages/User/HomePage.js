@@ -24,22 +24,6 @@ function HomePage() {
   }, 3.6e+6);
   const typeOption = [
     {
-      id: 'playlist',
-      name: 'Playlist',
-    },
-    {
-      id: 'album',
-      name: 'Albums',
-    },
-    {
-      id: 'artist',
-      name: 'Artists',
-    },
-    {
-      id: 'show',
-      name: 'Shows',
-    },
-    {
       id: 'track',
       name: 'Songs',
     },
@@ -250,10 +234,6 @@ function HomePage() {
             <Outlet></Outlet>
           </div>
           {query && typeId === 'track' && <SearchSong></SearchSong>}
-          {query && typeId === 'album' && <SearchAlbum></SearchAlbum>}
-          {query && typeId === 'show' && <SearchShow></SearchShow>}
-          {query && typeId === 'playlist' && <SearchPlaylist></SearchPlaylist>}
-          {query && typeId === 'artist' && <SearchArtist></SearchArtist>}
         </div>
       </div>
     </div>

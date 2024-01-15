@@ -10,19 +10,23 @@ function SearchShow() {
   const search = async (query, type) => {
     try {
       let response = await services.searchService(query, type);
-      setShow(response.data);
+      setShow(response);
     } catch (error) {
       console.error(error.message);
     }
   };
   useEffect(() => {
-    search(q, type);
+    if ((q, type)) {
+      search(q, type);
+    }
   }, [q, type]);
+  console.log('query, type: ', q, type);
+  console.log('show: ', show)
   return (
     <div className='bg-[#101010]'>
-      <div className='flex flex-wrap gap-6 px-7'>
+      {/* <div className='flex flex-wrap gap-6 px-7'>
         {show.shows?.items.map((item, i) => (
-          <NavLink key={i} to={item.external_urls?.spotify}>
+          <NavLink key={i} to={''}>
             <div className='mt-4 w-[197px] h-[275px] cursor-pointer p-4 rounded-md bg-[#161616] hover:bg-[#242424] duration-500 relative group'>
               <div className='absolute right-6 top-[125px] transition-transform -translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0'>
                 <BtnPlay />
@@ -76,7 +80,7 @@ function SearchShow() {
             </div>
           </NavLink>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
