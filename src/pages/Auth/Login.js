@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Switch } from 'antd';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Switch } from 'antd';
+import AuthService from '../../services/AuthService';
 import '../../index.css';
+import { useNavigate } from 'react-router-dom';
 function Login() {
   const [showPassword, setShowPassword] = useState(true);
   const [stateSwitch, setStateSwitch] = useState(true);
-  const navigate = useNavigate();
-  const CLIENT_ID = 'b8ac00583314427388804fdfc6b4c02c';
-  const REDIRECT_URL = 'https://65a4c54e26f275000819bcb8--shimmering-muffin-9738c9.netlify.app/';
-  const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-  const RESPONSE_TYPE = 'token';
-
-  <ConfigProvider
-    theme={{
-      components: {
-        Switch: {
-          handleBg: '#000000',
-        },
-      },
-    }}
-  ></ConfigProvider>;
+  const navigate = useNavigate()
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
   const handleSwitchRemember = () => {
     setStateSwitch(!stateSwitch);
+  };
+
+  const handleLogin = async () => {
+    try {
+      const services = new AuthService();
+      const response = await services.token();
+      localStorage.setItem('token', response.data.access_token)
+      navigate('/')
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
   };
   return (
     <div>
@@ -289,13 +287,12 @@ function Login() {
                   </div>
                 </div>
                 <div className='py-8'>
-                  <NavLink
-                    to={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}
+                  <button
+                    onClick={handleLogin}
+                    className='bg-[#1ed760] rounded-full py-2.5 px-[120px]  transform hover:scale-[1.1]'
                   >
-                    <button className='bg-[#1ed760] rounded-full py-2.5 px-[120px]  transform hover:scale-[1.1]'>
-                      <p className='font-bold text-black'>Login</p>
-                    </button>
-                  </NavLink>
+                    <p className='font-bold text-black'>Login</p>
+                  </button>
                 </div>
               </div>
             </div>

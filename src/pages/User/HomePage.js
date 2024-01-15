@@ -10,33 +10,18 @@ import SearchArtist from './SearchArtist';
 import SearchPlaylist from './SearchPlaylist';
 import SearchShow from './SearchShow';
 function HomePage() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [isBrowseAll, setIsBrowseAll] = useState(false);
   const [query, setQuery] = useState('');
   const [typeId, setType] = useState('');
   const [typeName, setTypeName] = useState('');
   const { q, type: routeType } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem('token');
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split('&')
-        .find((ele) => ele.startsWith('access_token'))
-        .split('=')[1];
-      window.location.hash = '';
-      window.localStorage.setItem('token', token);
-      console.log('token:', token);
-    }
-    setToken(token);
-  }, []);
   setTimeout(() => {
     setToken('');
     navigate('login');
     window.localStorage.removeItem('token');
-  }, 900000);
+  }, 3.6e+6);
   const typeOption = [
     {
       id: 'playlist',
