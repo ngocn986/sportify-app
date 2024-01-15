@@ -7,7 +7,7 @@ function Login() {
   const [stateSwitch, setStateSwitch] = useState(true);
   const navigate = useNavigate();
   const CLIENT_ID = 'b8ac00583314427388804fdfc6b4c02c';
-  const REDIRECT_URL = 'https://shimmering-muffin-9738c9.netlify.app/';
+  const REDIRECT_URL = 'https://65a4c54e26f275000819bcb8--shimmering-muffin-9738c9.netlify.app/';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
   const RESPONSE_TYPE = 'token';
 
